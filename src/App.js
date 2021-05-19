@@ -1,11 +1,9 @@
-import { Divider } from "@material-ui/core";
+import { TopBarContainer } from "./containers";
 
-function App() {
+export default function App() {
   return (
-   <div>
-     toto
-   </div>
+   <TopBarContainer />
+
   );
 }
 
-export default App;
