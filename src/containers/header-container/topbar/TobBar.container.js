@@ -4,7 +4,7 @@ export function TopBarContainer(){
 
     return(
         <TobBar>
-            <h1>toto</h1>
+            toto
         </TobBar>
     )
 }

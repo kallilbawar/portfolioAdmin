@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
 export const TopBar = styled.div`
- color: red;
+width: 100%;
+background: #a5bff6;
+height: 50px;
 `
