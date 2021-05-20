@@ -1,10 +1,19 @@
-import { TopBarContainer } from "./containers";
-import 'normalize.css';
+import {
+  SideBarContainer,
+  TopBarContainer,
+  ContentContainer,
+} from "./containers";
+import "normalize.css";
+import { Wraper } from "components";
 
 export default function App() {
   return (
-   <TopBarContainer />
-
+    <>
+      <TopBarContainer />
+      <Wraper>
+        <SideBarContainer />
+        <ContentContainer />
+      </Wraper>
+    </>
   );
 }
-

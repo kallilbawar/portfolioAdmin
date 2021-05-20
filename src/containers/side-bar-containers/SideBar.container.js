@@ -1,8 +1,10 @@
+import { SideBar } from "components";
+
 export function SideBarContainer(){
 
     return(
-         <div>
-
-        </div>
+         <SideBar>
+            SideBar
+        </SideBar>
     )
 }

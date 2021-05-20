@@ -1,10 +1,5 @@
+import * as S from "./SideBar.styled";
 
-export function SideBar()
-{
-    return (
-        <div>
-
-            je suis side bare
-        </div>
-    )
+export function SideBar({ children }) {
+  return <S.SideBar>{children}</S.SideBar>;
 }
