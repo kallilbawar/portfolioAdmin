@@ -2,6 +2,6 @@ import styled from "styled-components";
 
 export const TopBar = styled.div`
 width: 100%;
-background: #a5bff6;
+background: #44464b;
 height: 50px;
 `

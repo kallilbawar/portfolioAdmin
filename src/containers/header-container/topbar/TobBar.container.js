@@ -1,10 +1,10 @@
-import { TobBar } from "components";
+import {Avatar, TobBar } from "components";
 
 export function TopBarContainer(){
 
     return(
         <TobBar>
-            toto
+         <Avatar />
         </TobBar>
     )
 }
