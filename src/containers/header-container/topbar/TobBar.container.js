@@ -5,7 +5,7 @@ export function TopBarContainer(){
 
     return(
         <TobBar>
-         <Avatar />
+         <Avatar  />
          <PowerSettingsNewIcon style={{cursor: "pointer", marginRight: "1.4rem"}} />
         </TobBar>
     )

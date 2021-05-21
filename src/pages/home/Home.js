@@ -1,12 +1,16 @@
 import {
-    SideBarContainer,
-    TopBarContainer,
-    ContentContainer,
-  } from "containers";
-  import { Wraper } from "components";
+  SideBarContainer,
+  TopBarContainer,
+  ContentContainer,
+} from "containers";
+import { Wraper } from "components";
+import { useState } from "react";
+import { Login } from "pages/login/Login";
 
 export function Home() {
-  return (
+  const [userSession, setuserSession] = useState(true);
+
+  return userSession === true ? (
     <>
       <TopBarContainer />
       <Wraper>
@@ -14,5 +18,7 @@ export function Home() {
         <ContentContainer />
       </Wraper>
     </>
+  ) : (
+    <Login />
   );
 }
