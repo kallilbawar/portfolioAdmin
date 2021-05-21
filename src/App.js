@@ -1,22 +1,15 @@
 import {
-  SideBarContainer,
-  TopBarContainer,
-  ContentContainer,
+  RouterContentContainer,
 } from "./containers";
 import "normalize.css";
-import { Wraper } from "components";
-import { Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 export default function App() {
   return (
-    <>
-      <TopBarContainer />
-      <Wraper>
-        <SideBarContainer />
-        
-          <ContentContainer />
-       
-      </Wraper>
-    </>
+    <Router>
+      <RouterContentContainer/>
+    </Router>
   );
 }

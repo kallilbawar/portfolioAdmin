@@ -16,7 +16,9 @@ export function SideBarContainer() {
     }}>
     
 
-        {SideMenu.map((item, index) => <List key={index} id={item}>{item}</List>)}
+        {SideMenu.map((item, index) =>
+        
+        <List key={index} id={item} iconName= "M.AccessAlarmRounded">{item}</List>)}
       </ul>
     </SideBar>
   );

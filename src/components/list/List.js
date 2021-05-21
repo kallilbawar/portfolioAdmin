@@ -1,13 +1,7 @@
-import * as S from './List.style'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-export function List ({children}){
+import * as S from "./List.style";
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 
-    return(
-        
-        <S.List>
-            {children}
-        </S.List>
-    )
+export function List({ children }) {
+  return <S.List><PowerSettingsNewIcon />{children}</S.List>;
 }
