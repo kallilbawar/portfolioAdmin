@@ -11,7 +11,8 @@ export function SideBarContainer() {
         flexDirection: 'column',
         alignItems: 'flex-start',
         padding: '0',
-        minWidth: '120px'
+        minWidth: '120px',
+        
     }}>
     
 

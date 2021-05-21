@@ -1,12 +1,12 @@
 import {Content} from 'components'
-import{CollapsibleTable} from 'pages'
+import{EnhancedTable} from 'pages'
  
 export function ContentContainer (){
 
 
     return (
         <Content>
-            <CollapsibleTable />
+            <EnhancedTable />
         </Content>
     )
 }

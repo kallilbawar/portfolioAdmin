@@ -5,7 +5,7 @@ import {
 } from "./containers";
 import "normalize.css";
 import { Wraper } from "components";
-import { Router } from "react-router";
+import { Router } from "react-router-dom";
 
 export default function App() {
   return (
@@ -13,9 +13,9 @@ export default function App() {
       <TopBarContainer />
       <Wraper>
         <SideBarContainer />
-        <Router>
+        
           <ContentContainer />
-        </Router>
+       
       </Wraper>
     </>
   );

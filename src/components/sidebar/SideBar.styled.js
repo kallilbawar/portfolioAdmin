@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const SideBar = styled.div`
 
-background : #44464b;
-flex-grow: 1
-
+border-right: 1px solid #cfcfcf;
+flex-grow: 1;
+width: 2rem
 `
