@@ -22,7 +22,6 @@ export function Login() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",
         marginTop: "8rem",
       }}
     >
