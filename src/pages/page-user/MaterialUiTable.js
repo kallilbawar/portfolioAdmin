@@ -18,21 +18,32 @@ import Cancel from "@material-ui/icons/Cancel";
 import Clear from "@material-ui/icons/Clear";
 import ClearAll from "@material-ui/icons/ClearAll";
 import { useQuery, useMutation } from '@apollo/client';
-import {Users, DeleteUser} from 'graphql/schema/User.Schema'
+import {Users, CreateUSer, UpdateUSer, DeleteUser} from 'graphql/schema/User.Schema'
 import MaterialTable from "material-table";
 import { useEffect } from "react";
+import { TextField } from "@material-ui/core";
 
 
 export function MaterialUiTable() {
 
   const { loading, error, data } = useQuery(Users);
-  const [deleteUSer] = useMutation(DeleteUser)
+  const [createUser] = useMutation(CreateUSer)
+  const [updateUser] = useMutation(UpdateUSer)
+  const [deleteUser] = useMutation(DeleteUser)
 
   const [state, setState] = useState({
     columns: [
-      { title: "Id", field: "id" },
+      
       { title: "Name", field: "name" },
       { title: "Email", field: "email" },
+      { title: "Password", field: "password", 
+      render: rowData => <p>••••••</p>,
+       editComponent: props => (
+        <TextField
+            type="password"
+            onChange={e => props.onChange(e.target.value)}
+        />)
+      },
     ]
   })
 
@@ -61,6 +72,7 @@ export function MaterialUiTable() {
 
   return (
     <MaterialTable
+
       style={{
         color: "#4a4a4ade",
         fontFamily: "arial",
@@ -68,6 +80,7 @@ export function MaterialUiTable() {
       }}
       icons={{
         Check: Check,
+        ResetSearch: Clear,
         Add: Add,
         Delete: Delete,
         Edit: Edit,
@@ -95,6 +108,7 @@ export function MaterialUiTable() {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve();
+             createUser({variables:{ name: newData.name, email: newData.email, password: newData.password }});
               setState((prevState) => {
                 const data = [...prevState.data];
                 data.push(newData);
@@ -106,6 +120,8 @@ export function MaterialUiTable() {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve();
+
+              updateUser({variables:{ id: oldData.id, name: newData.name, email: newData.email, password: newData.password }});
               if (oldData) {
                 setState((prevState) => {
                   const data = [...prevState.data];
@@ -118,10 +134,10 @@ export function MaterialUiTable() {
         onRowDelete: (oldData) => 
           new Promise((resolve) => {
             setTimeout(() => {
-              resolve();    
-              deleteUSer({variables:{ id: oldData.id }});
+              resolve(); 
+              console.log(oldData.id)   
+              deleteUser({variables:{ id: oldData.id }});
               setState((prevState) => {
-                console.log(prevState.data)
                 const data = [...prevState.data];
                 data.splice(data.indexOf(oldData), 1);
                 return { ...prevState, data };
