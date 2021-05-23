@@ -19,19 +19,15 @@ import Close from "@material-ui/icons/Close";
 import Cancel from "@material-ui/icons/Cancel";
 import Clear from "@material-ui/icons/Clear";
 import ClearAll from "@material-ui/icons/ClearAll";
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import {Users} from 'graphql/schema/User.Schema'
+
 
 import MaterialTable from "material-table";
 
 export function MaterialUiTable() {
  
-  const Users = gql`
-   query {
-        listUsers {
-          name
-        }
-      }
-  `
+
     
   const { loading, error, data } = useQuery(Users);
 
