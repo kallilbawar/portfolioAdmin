@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import SaveAlt from "@material-ui/icons/SaveAlt";
@@ -19,41 +17,47 @@ import Close from "@material-ui/icons/Close";
 import Cancel from "@material-ui/icons/Cancel";
 import Clear from "@material-ui/icons/Clear";
 import ClearAll from "@material-ui/icons/ClearAll";
-import { useQuery } from '@apollo/client';
-import {Users} from 'graphql/schema/User.Schema'
-
-
+import { useQuery, useMutation } from '@apollo/client';
+import {Users, DeleteUser} from 'graphql/schema/User.Schema'
 import MaterialTable from "material-table";
+import { useEffect } from "react";
+
 
 export function MaterialUiTable() {
- 
 
-    
   const { loading, error, data } = useQuery(Users);
-
-  console.log(data);
+  const [deleteUSer] = useMutation(DeleteUser)
 
   const [state, setState] = useState({
     columns: [
+      { title: "Id", field: "id" },
       { title: "Name", field: "name" },
-      { title: "Surname", field: "surname" },
-      { title: "Birth Year", field: "birthYear", type: "numeric" },
-      {
-        title: "Birth Place",
-        field: "birthCity",
-        lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
-      },
-    ],
-    data: [
-      { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 },
-      {
-        name: "Zerya Betül",
-        surname: "Baran",
-        birthYear: 2017,
-        birthCity: 34,
-      },
-    ],
-  });
+      { title: "Email", field: "email" },
+    ]
+  })
+
+  useEffect(() => {
+    
+    if (error)
+    {
+      // TODO: handel error case
+      alert(error);
+      return ;
+    }
+
+    if (!loading)
+    {
+      setState({
+        ...state,
+        data: data.listUsers.map(item => ({...item})),
+      })
+    }
+    console.log('-----');
+    console.log("Loading", loading)
+    console.log("Error", error);
+    console.log("Data", data);
+  }, [loading, error, data]);
+
 
   return (
     <MaterialTable
@@ -73,7 +77,6 @@ export function MaterialUiTable() {
         Clear: Clear,
         DeleteOutline: DeleteOutline,
         ViewColumn: ViewColumn,
-
         DetailPanel: ChevronRight,
         Export: SaveAlt,
         Filter: FilterList,
@@ -112,11 +115,13 @@ export function MaterialUiTable() {
               }
             }, 600);
           }),
-        onRowDelete: (oldData) =>
+        onRowDelete: (oldData) => 
           new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
+              resolve();    
+              deleteUSer({variables:{ id: oldData.id }});
               setState((prevState) => {
+                console.log(prevState.data)
                 const data = [...prevState.data];
                 data.splice(data.indexOf(oldData), 1);
                 return { ...prevState, data };
