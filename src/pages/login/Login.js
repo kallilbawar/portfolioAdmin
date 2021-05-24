@@ -1,6 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { BasicTextFields, ContainedButtons } from "components";
+import { userLogin } from "graphql/schema/User.Schema";
+import { useState, useCallback } from "react";
+
+import { useLazyQuery } from "@apollo/client";
+import { useEffect } from "react";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -12,8 +17,50 @@ const useStyles = makeStyles((theme) => ({
 
 export function Login() {
   const classes = useStyles();
+
+  const [ getToken, {loading, error, data } ] = useLazyQuery(userLogin);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+
+    // Login error
+    if (error)
+    {
+      console.log('Receive response error');
+      console.log(error);
+      return;
+    }
+
+    // Login loading
+    if (loading)
+    {
+      console.log('Loading login response...');
+      return ;
+    }
+
+    // Login ok
+    if (data)
+    {
+      console.log('Receive response data ok');
+      console.log('Data : ', data);
+    }
+
+  }, [data, loading, error]);
+
+  const handleButtonClicked = useCallback(() => {
+  
+    console.log('Send request');
+    console.log(password)
+    console.log(email)
+
+    // Execute login request
+    getToken({variables:{email: email, password: password}})
+  }, [email, password]);
+
   return (
-    <form
+    <div
       className={classes.root}
       noValidate
       autoComplete="off"
@@ -25,11 +72,26 @@ export function Login() {
         marginTop: "8rem",
       }}
     >
-      <BasicTextFields id="login" label="Login" />
-      <BasicTextFields id="password" label="Password" />
-      <ContainedButtons type="button" variant="contained" color="primary">
+      <BasicTextFields
+        id="login"
+        label="Login"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+      />
+      <BasicTextFields
+        id="password"
+        label="Password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+      />
+      <ContainedButtons
+        type="button"
+        variant="contained"
+        color="primary"
+        onClick={handleButtonClicked}
+      >
         <span>Login</span>
       </ContainedButtons>
-    </form>
+    </div>
   );
 }
