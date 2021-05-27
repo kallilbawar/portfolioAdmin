@@ -1,12 +1,12 @@
 import {Content} from 'components'
-import{MaterialUiTable} from 'pages'
+import{UserTable} from 'pages'
  
 export function ContentContainer (){
 
 
     return (
         <Content>
-            <MaterialUiTable />
+            <UserTable />
         </Content>
     )
 }

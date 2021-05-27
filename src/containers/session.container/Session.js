@@ -8,9 +8,9 @@ import {
   import { Login } from "pages/login/Login";
   
   export function Session() {
-    const [userSession, setuserSession] = useState(false);
+    const [session, setSession] = useState(true);
   
-    return userSession === true ? (
+    return session === true ? (
       <>
         <TopBarContainer />
         <Wraper>
