@@ -1,52 +1,46 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import {
-  Users,
-  CreateUSer,
-  UpdateUSer,
-  DeleteUser,
-} from "graphql/schema/User.Schema";
+  ListContracts,
+  CreateContract,
+  UpdateContract,
+  DeleteContract,
+} from "graphql/schema/Contract.schema";
 import {MaterialUITable} from "components";
 import { useEffect } from "react";
-import { TextField } from "@material-ui/core";
 
 export function ContractTable() {
   const [errorField, setErrorField] = useState("");
-  const { loading, error, data } = useQuery(Users);
-  const [createUser] = useMutation(CreateUSer);
-  const [updateUser] = useMutation(UpdateUSer);
-  const [deleteUser] = useMutation(DeleteUser);
+  const { loading, error, data } = useQuery(ListContracts);
+  const [createContract] = useMutation(CreateContract);
+  const [updateContract] = useMutation(UpdateContract);
+  const [deleteUContract] = useMutation(DeleteContract);
 
   const [state, setState] = useState({
     columns: [
+      { title: "Number", field: "number" },
       { title: "Name", field: "name" },
-      { title: "Email", field: "email" },
-      {
-        title: "Password",
-        field: "password",
-        render: (rowData) => <p>••••••</p>,
-        editComponent: (props) => (
-          <TextField
-            type="password"
-            placeholder="Password"
-            onChange={(e) => props.onChange(e.target.value)}
-          />
-        ),
-      },
+      { title: "Start_date", field: "start_date", type:"datetime" },
+      { title: "End_date", field: "end_date", type:"datetime" },
+      { title: "User", field: "user.name" },
     ],
   });
 
   useEffect(() => {
+
     if (error) {
       // TODO: handel error case
       alert(error);
       return;
     }
 
+    
+    console.log(loading);
     if (!loading) {
+        console.log(data);
       setState({
         ...state,
-        data: data.listUsers.map((item) => ({ ...item })),
+        data: data.listContracts.map((item) => ({...item})),
       });
     }
     console.log("-----");
@@ -56,6 +50,7 @@ export function ContractTable() {
   }, [loading, error, data]);
 
   return (
+      
     <MaterialUITable
       title="Contracts"
       columns={state.columns}
@@ -65,11 +60,13 @@ export function ContractTable() {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve();
-              createUser({
+              createContract({
                 variables: {
+                  number: newData.number,
                   name: newData.name,
-                  email: newData.email,
-                  password: newData.password,
+                  start_date: newData.start_date,
+                  end_date: newData.end_date,
+                  userId: newData.userId,
                 },
               }).catch((e) => {
                 console.log("error de update" + e);
@@ -86,12 +83,14 @@ export function ContractTable() {
             setTimeout(() => {
               resolve();
 
-              updateUser({
+              updateContract({
                 variables: {
                   id: oldData.id,
+                  number: newData.number,
                   name: newData.name,
-                  email: newData.email,
-                  password: newData.password,
+                  start_date: newData.start_date,
+                  end_date: newData.end_date,
+                  userId: newData.userId,
                 },
               });
               if (oldData) {
@@ -108,7 +107,7 @@ export function ContractTable() {
             setTimeout(() => {
               resolve();
               console.log(oldData.id);
-              deleteUser({ variables: { id: oldData.id } });
+              deleteUContract({ variables: { id: oldData.id } });
               setState((prevState) => {
                 const data = [...prevState.data];
                 data.splice(data.indexOf(oldData), 1);

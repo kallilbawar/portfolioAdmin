@@ -45,6 +45,7 @@ export function Login() {
     {
       console.log('Receive response data ok');
       console.log('Data : ', data);
+      localStorage.setItem("user", JSON.stringify(true));
     }
 
   }, [data, loading, error]);
@@ -75,12 +76,14 @@ export function Login() {
       <BasicTextFields
         id="login"
         label="Login"
+        type="text"
         onChange={(e) => setEmail(e.target.value)}
         value={email}
       />
       <BasicTextFields
         id="password"
         label="Password"
+        type ="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />

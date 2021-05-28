@@ -1,13 +1,12 @@
 import { gql } from "@apollo/client";
 
-export const listContracts = gql`
+export const ListContracts = gql`
   query {
     listContracts {
       number
       name
       start_date
       end_date
-      userId
       user {
         name
       }
@@ -15,7 +14,7 @@ export const listContracts = gql`
   }
 `;
 
-export const Deletecontract = gql`
+export const DeleteContract = gql`
   mutation deletecontract($id: Int!) {
     deletecontract(id: $id) {
       id
@@ -23,7 +22,7 @@ export const Deletecontract = gql`
   }
 `;
 
-export const Createcontract = gql`
+export const CreateContract = gql`
   mutation createContact(
     $number: Int!
     $name: String!
@@ -47,7 +46,7 @@ export const Createcontract = gql`
   }
 `;
 
-export const Updatecontract = gql`
+export const UpdateContract = gql`
   mutation updateContact(
     $id: Int!
     $number: Int!
